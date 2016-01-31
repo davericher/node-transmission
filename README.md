@@ -94,6 +94,28 @@ Remove also local data when `del` is `true`.
 transmission.remove [1, 7], true, (err, arg) ->
 ```
 
+### transmission.removeBefore(config, callback)
+
+Remove all torrents before a specified point in time using moment.js syntax
+
+**config object**
+- unit - string containing valid moment.js units such as hours, days, months, weeks (defaults to days)
+- amount - integer containing the amount of time
+- keepLocal - keep or delete local files after removing torrent (defaults to true)
+
+```js
+var Transmission = require('transmission');
+var transmission = new Transmission();
+// Remove torrents and delete files older then 15 days
+transmission.removeBefore({
+  amount: 15,
+  unit: 'days',
+  keepFiles: false
+}, function(result) {
+  console.log('removed torrent ' + result.id);
+});
+```
+
 ### transmission.active(callback)
 
 List of active torrents. Callback is not needed and will fire the `active` event.
@@ -236,5 +258,3 @@ transmission.addUrl('http://cdimage.debian.org/debian-cd/7.1.0/i386/bt-cd/debian
 	getTorrent(id)
 })
 ```
-
-

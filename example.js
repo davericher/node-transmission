@@ -58,13 +58,23 @@ function remove(hash) {
 	});
 }
 
+function removeBefore(days, keep) {
+	transmission.removeBefore({
+		amount: days,
+		unit: 'days',
+		keepFiles: keep},
+		function(result) {
+			console.log('removed torrent ' + result.id);
+		});
+}
+
 var sample = 'http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-desktop-amd64.iso.torrent';
 
 transmission.addUrl(sample, {
 	//options
 }, function(err, result) {
 	if (err) {
-		return console.log(err)
+		return console.log(err);
 	}
 	var hash = result.hashString;
 	watch(hash);
